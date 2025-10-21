@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-dev
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: app123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./productos_app_api
+    container_name: productos_app_api
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__ConnectionString: "Server=mysql;Port=3306;Database=productos_app;User=appuser;Password=app123;"
+    ports:
+      - "5000:8080"
+    command: >
+      bash -c "dotnet ef database update && dotnet productos_app_api.dll"
+  
+  frontend:
+    build: ./productos_app_frontend
+    container_name: productos_app_frontend
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    command: >
+      sh -c "npm install && npm run build && npm run start"
+
+volumes:
+  mysql_data:

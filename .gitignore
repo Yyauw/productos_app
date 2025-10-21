@@ -1,0 +1,19 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.next/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.dll
+*.pdb
+*.vs
+
+# Env
+.env
+.env.local
+.env.*.local
