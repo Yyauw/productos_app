@@ -59,12 +59,6 @@ export default function TablaProductos({ data }: ListaProductosProps) {
       try {
         const decodedToken: datosUsuarioToken = jwtDecode(tokenLS);
         setRol(decodedToken.role.toString());
-        const currentTime = Date.now() / 1000;
-        if (decodedToken.exp < currentTime) {
-          // El token ha expirado
-          localStorage.removeItem("token");
-          router.push("/login");
-        }
       } catch (error) {
         console.error("Error decoding token:", error);
         localStorage.removeItem("token");
