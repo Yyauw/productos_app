@@ -12,6 +12,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -31,7 +32,7 @@ services:
       - "5000:8080"
     command: >
       bash -c "dotnet ef database update && dotnet productos_app_api.dll"
-  
+
   frontend:
     build: ./productos_app_frontend
     container_name: productos_app_frontend
