@@ -5,7 +5,7 @@ services:
     container_name: mysql-dev
     environment:
       MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: appdb
+      MYSQL_DATABASE: productos_app
       MYSQL_USER: appuser
       MYSQL_PASSWORD: app123
     ports:
