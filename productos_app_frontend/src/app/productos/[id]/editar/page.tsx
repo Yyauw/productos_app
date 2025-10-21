@@ -28,7 +28,7 @@ export default function EditarProductosPage({
   const [fueProductoEditado, setFueProductoEditado] = useState<boolean>(false);
   const [dialogHeader, setDialogHeader] = useState<string>("");
   const [dialogBody, setDialogBody] = useState<string>("");
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
   const [producto, setProducto] = useState<Producto>({
     Nombre: "",
     Descripcion: "",
@@ -39,7 +39,7 @@ export default function EditarProductosPage({
   useEffect(() => {
     const fetchProducto = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/producto/${id}`);
+        const res = await fetch(apiUrl + `/api/producto/${id}`);
         if (!res.ok) throw new Error(`Error ${res.status}`);
         const data = await res.json();
         console.log(data);
@@ -81,7 +81,7 @@ export default function EditarProductosPage({
   const editarProducto = async () => {
     const token = localStorage.getItem("token") || "";
     try {
-      const response = await fetch(`http://localhost:5000/api/producto/${id}`, {
+      const response = await fetch(apiUrl + `/api/producto/${id}`, {
         method: "PUT", // o PATCH según tu API
         headers: {
           "Content-Type": "application/json",

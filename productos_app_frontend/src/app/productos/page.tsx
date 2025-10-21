@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { ProductoTabla } from "@/types/ProductoTabla";
 
 export default function ProductosPage() {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
   const [productos, setProductos] = useState<ProductoTabla[]>([]);
 
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/producto");
+        const res = await fetch(apiUrl + "/api/producto");
         if (!res.ok) throw new Error(`Error ${res.status}`);
         const data: ProductoTabla[] = await res.json();
         // Convertir fechas de string a Date

@@ -17,7 +17,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const router = useRouter();
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     // verificamos que los campos no esten vacios
@@ -34,7 +34,7 @@ export default function LoginPage() {
   ): Promise<void> => {
     try {
       // Lógica de validación de usuario
-      const res = await fetch("http://localhost:5000/api/usuario/login", {
+      const res = await fetch(apiUrl + "/api/usuario/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

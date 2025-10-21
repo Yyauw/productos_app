@@ -25,6 +25,7 @@ export default function RegistroPage() {
   const [selectedRol, setSelectedRol] = useState<Rol | null>(null);
   const [visible, setVisible] = useState<boolean>(false);
   const router = useRouter();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
   const roles: Rol[] = [
     { rol: "Usuario", codigo: 2 },
     { rol: "Administrador", codigo: 1 },
@@ -47,7 +48,7 @@ export default function RegistroPage() {
   ) => {
     try {
       // Lógica de creacion de usuario
-      const res = await fetch("http://localhost:5000/api/usuario/registro", {
+      const res = await fetch(apiUrl + "/api/usuario/registro", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

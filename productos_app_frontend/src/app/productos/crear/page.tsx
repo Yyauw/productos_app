@@ -47,8 +47,9 @@ export default function CrearProductosPage() {
 
   const crearProducto = async () => {
     try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/producto", {
+      const res = await fetch(apiUrl + "/api/producto", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

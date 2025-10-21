@@ -12,11 +12,11 @@ export default function VerProductoPage({
 }) {
   const { id } = use(params);
   const [producto, setProducto] = useState<Producto | null>(null);
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
   useEffect(() => {
     const fetchProducto = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/producto/${id}`);
+        const res = await fetch(apiUrl + `/api/producto/${id}`);
         if (!res.ok) throw new Error(`Error ${res.status}`);
         const data: Producto = await res.json();
 
