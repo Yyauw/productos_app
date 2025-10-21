@@ -28,8 +28,13 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__ConnectionString: "Server=mysql;Port=3306;Database=productos_app;User=appuser;Password=app123;"
+      JWT__KEY: super-clave-mega-hiper-secreta-para-generar-tokens
+      JWT__ISSUER: productos_app_api
+      JWT__AUDIENCE: productos_app_api_usuarios
+      JWT__DURATIONINMINUTES: 60
     ports:
       - "5000:8080"
+    restart: unless-stopped
     command: >
       bash -c "dotnet ef database update && dotnet productos_app_api.dll"
 
