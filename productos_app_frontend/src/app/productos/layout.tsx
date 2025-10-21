@@ -19,12 +19,6 @@ export default function ProductosLayout({
       try {
         const decodedToken: datosUsuarioToken = jwtDecode(token);
         setNombreUsuario(decodedToken.unique_name);
-        const currentTime = Date.now() / 1000; // Tiempo actual en segundos
-        if (decodedToken.exp < currentTime) {
-          // El token ha expirado
-          localStorage.removeItem("token");
-          window.location.href = "/login"; // Redirigir al login
-        }
       } catch (error) {
         console.error("Error decoding token:", error);
         localStorage.removeItem("token");
